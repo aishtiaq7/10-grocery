@@ -3,7 +3,7 @@ import List from "./List";
 import Alert from "./Alert";
 
 function App() {
-  const [name, setName] = useState("");
+  let [name, setName] = useState("");
   const [list, setList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editID, setEditID] = useState(null);
@@ -12,9 +12,23 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("clicked");
-    // console.log(e.target);
-    console.log(name)
-    // console.log(e.target.value);
+
+    console.log('name:',name);
+
+    if(!name){
+      //alert
+    } else if ( name && isEditing){
+      //Edit
+    } else {
+      const newItem = {
+        id: new Date().getTime.toString(),
+        title: name
+      }
+      setList( [
+        ...list, newItem
+      ]);
+      setName('');
+    }
   };
 
   return (
@@ -36,7 +50,7 @@ function App() {
         </div>
       </form>
       <div className="grocery-container">
-        <List />
+        <List items={list} />
         <button className="clear-btn">Clear Items</button>
       </div>
     </section>
